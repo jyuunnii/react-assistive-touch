@@ -14,6 +14,8 @@ const AssistiveTouch = () => {
   const [node, setNode] = useState<HTMLDivElement | null>();
   const [nodeSize, setNodeSize] = useState<NodeSize>({width: 0, height: 0});
   const screenSize = getScreenSize();
+  let hasUserTouchMove = false;
+  let hasUserTouchStart = false;
 
   useEffect(() => {
     if (node) {
@@ -45,7 +47,7 @@ const AssistiveTouch = () => {
   };
 
   const onMouseMove = (e: MouseEvent | Touch) => {
-    setOpenMenu(false);
+    hasUserTouchMove = true;
 
     // detect whether user-touch-position is within screen 
     const isValidMoving = Boolean(e.clientX > 0 && e.clientY > 0);
@@ -96,9 +98,10 @@ const AssistiveTouch = () => {
   const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     if(openMenu){
       setOpenMenu(false);
-    }else{
-      setOpenMenu(true);
+      hasUserTouchStart = false;
+      hasUserTouchMove = false;
     }
+    hasUserTouchStart = true;
 
     e.preventDefault();
     onMouseDown(e.changedTouches[0]);
@@ -110,6 +113,9 @@ const AssistiveTouch = () => {
   };
 
   const onTouchEnd = (e: TouchEvent) => {
+    if(hasUserTouchStart && !hasUserTouchMove){
+      setOpenMenu(true)
+    }
     e.preventDefault();
     onMouseUp(e.changedTouches[0]);
   };
