@@ -1,4 +1,4 @@
-import { AssistiveTouchState } from "./types";
+import { AssitiveTouchPosition } from "./types";
 
 export const getScreenSize = () => {
     return {
@@ -13,10 +13,9 @@ export const getScreenSize = () => {
     };
 };
 
-export const setStyles = (assistiveTouchState: AssistiveTouchState) => {
+export const setStyles = (assistiveTouchPosition: AssitiveTouchPosition) => {
     return {
-      top: `${assistiveTouchState.position.x}px`,
-      left: `${assistiveTouchState.position.y}px`,
-      transform: `scale(${assistiveTouchState.isClickedToOpen ? '0' : '1'})`,
+      top: `${assistiveTouchPosition.x}px`,
+      left: `${assistiveTouchPosition.y}px`
     };
 };

@@ -3,11 +3,6 @@ export interface AssitiveTouchPosition {
   y: number; // left-right
 }
 
-export interface AssistiveTouchState {
-  position: AssitiveTouchPosition;
-  isClickedToOpen: boolean;
-}
-
 export interface NodeSize {
   width: number;
   height: number;
